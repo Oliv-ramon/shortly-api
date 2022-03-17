@@ -26,10 +26,21 @@ export async function createUser(req, res) {
 }
 
 export async function getUser(req, res) {
-  const { user } = res.locals;
+  const { id } = req.params;
 
   try {
-    res.send(user);
+    const userResult = await connection.query(`
+      SELECT * FROM users
+      WHERE id=$1
+    `, [id]);
+
+    if (userResult.rowCount === 0) {
+      return res.sendStatus(404);
+    }
+
+    const [userData] = userResult.rows;
+    console.log(userResult.rowCount)
+    res.status(200).send(userData);
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);

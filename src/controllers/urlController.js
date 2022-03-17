@@ -15,7 +15,7 @@ export async function createShorterUrl(req, res) {
 
 export async function getUser(req, res) {
   const { user } = res.locals;
-
+  
   try {
     res.send(user);
   } catch (error) {
