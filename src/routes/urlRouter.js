@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { createUser, getUser } from "../controllers/userController.js";
+import { createShorterUrl } from "../controllers/urlController.js";
 import { validateSchemaMiddleware } from "../middlewares/validateSchemaMiddleware.js";
 import { validateTokenMiddleware } from "../middlewares/validateTokenMiddleware.js";
-import userSchema from "../schemas/userSchema.js";
+import urlSchema from "../schemas/urlSchema.js";
 
 const userRouter = Router();
-userRouter.post('/users', validateSchemaMiddleware(userSchema), createUser);
-userRouter.get('/users', validateTokenMiddleware, getUser);
+userRouter.post('/urls/shorten', validateSchemaMiddleware(urlSchema), validateTokenMiddleware, createShorterUrl);
+/* userRouter.get('/users', validateTokenMiddleware, getUser); */
 export default userRouter;
